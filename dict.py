@@ -6,6 +6,13 @@ conn = psycopg2.connect(
    password="abc123"
 )
 
+print('''
+Hello and welcome to the phone list, available commands:
+    add - add a phone number
+    delete - delete a contact
+    list - list all phone numbers
+    quit - quit the program''')
+
 def read_dict(C):
     cur = C.cursor()
     cur.execute("SELECT id, word, translation FROM dictionary;")
@@ -26,7 +33,7 @@ def save_dict(C):
     cur.close()
 
 while True: ## REPL - Read Execute Program Loop
-    cmd = input("Command: ")
+    cmd = input("Command: ").upper().strip()
     if cmd == "list":
         print(read_dict(conn))
     elif cmd == "add":
