@@ -1,0 +1,2 @@
+# dict
+- python dict exercise
