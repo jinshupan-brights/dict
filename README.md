@@ -1,2 +1,1 @@
-# dict
-- python dict exercise
+cleanup README

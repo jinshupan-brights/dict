@@ -13,27 +13,34 @@ Hello and welcome to the phone list, available commands:
     list - list all phone numbers
     quit - quit the program''')
 
-def read_dict(C):
-    cur = C.cursor()
-    cur.execute("SELECT id, word, translation FROM dictionary;")
+# read_dict: returns the list of all dictionary entries:
+# argument: c - the database connection.
+def read_dict(conn):
+    cur = conn.cursor()
+    cur.execute("SELEcT id, word, translation FROM dictionary;")
     rows = cur.fetchall()
     cur.close()
     return rows
-def add_word(C, word, translation):
-    cur = C.cursor()
+# add_word: adds a word and its translation to dictionary entries:
+# argument: c - the database connection.
+def add_word(conn, word, translation):
+    cur = conn.cursor()
     cur.execute(f"INSERT INTO dictionary (word, translation) VALUES ('{word}', '{translation}');")
     cur.close()
-def delete_word(C, ID):
-    cur = C.cursor()
+# delete_word: deletes a entry from the dictionary based on the id:
+# argument: c - the database connection.
+def delete_word(conn, ID):
+    cur = conn.cursor()
     cur.execute(f"DELETE FROM dictionary WHERE id = '{ID}';")
     cur.close()
-def save_dict(C):
-    cur = C.cursor()
-    cur.execute("COMMIT;")
+# save_dict: commits all changes to the database
+def save_dict(conn):
+    cur = conn.cursor()
+    cur.execute("cOMMIT;")
     cur.close()
 
 while True: ## REPL - Read Execute Program Loop
-    cmd = input("Command: ").upper().strip()
+    cmd = input("command: ").upper().strip()
     if cmd == "list":
         print(read_dict(conn))
     elif cmd == "add":
